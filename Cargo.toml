@@ -1,5 +1,5 @@
 [package]
-name = "csv-split"
+name = "csvsplit"
 version = "0.1.0"
 authors = ["Devin Riegle <riegledevin@gmail.com>"]
 edition = "2018"
