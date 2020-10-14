@@ -12,6 +12,8 @@ I ran each sample file 5 times through the programs to give me the average run t
 I've included a `./sample-data.csv` file in this repo to provide a sample of the data that was used while running these tests.
 The only difference is the number of rows in the file, but the data was consistent in each row.
 
+*The highest number of rows that I was able to run the rust program was around 30 million. The file size was 818MB. It ran in about ~12 seconds when using `10000` as the batch size. I tried to add another 5 million to it (35 million total with around 920MB file size), but the process would get killed every time. There are probably some memory improvemnets that we could make to help with this limitation, but hopefully this won't be a huge problem for anyone.*
+
 | Language | File Size | Line Count | Batch Size | Avg. Time in seconds |
 | :--: | :--: | :--: | :--: | :--: |
 | Rust | 4.0KB | 5 | 1 | 0.0003829 |
@@ -19,6 +21,12 @@ The only difference is the number of rows in the file, but the data was consiste
 | - | - | - | - | - |
 | Rust | 28KB | 1,000 | 1 | 0.03352806 |
 | Ruby | 28KB | 1,000 | 1 | 0.094704671 |
+| - | - | - | - | - |
+| Rust | 1.7MB | 60,000 | 1 | 1.115898174 |
+| Ruby | 1.7MB | 60,000 | 1 | 5.387614667 |
+| - | - | - | - | - |
+| Rust | 2.7MB | 1,000,000 | 100 | 0.042519370 |
+| Ruby | 2.7MB | 1,000,000 | 100 | 1.710918996 |
 | - | - | - | - | - |
 | Rust | 289MB | 10,790,000 | 10,000 | 1.678728042 |
 | Ruby | 289MB | 10,790,000 | 10,000 | 188.9817373 |
