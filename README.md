@@ -12,6 +12,8 @@ I ran each sample file 5 times through the programs to give me the average run t
 I've included a `./sample-data.csv` file in this repo to provide a sample of the data that was used while running these tests.
 The only difference is the number of rows in the file, but the data was consistent in each row.
 
+*The highest number of rows that I was able to run the rust program was around 30 million. The file size was 818MB. It ran in about ~12 seconds when using `10000` as the batch size. I tried to add another 5 million to it (35 million total with around 920MB file size), but the process would get killed every time. There are probably some memory improvemnets that we could make to help with this limitation, but hopefully this won't be a huge problem for anyone.*
+
 | Language | File Size | Line Count | Batch Size | Avg. Time in seconds |
 | :--: | :--: | :--: | :--: | :--: |
 | Rust | 4.0KB | 5 | 1 | 0.0003829 |
