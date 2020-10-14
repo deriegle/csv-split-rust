@@ -43,6 +43,8 @@ $ cargo run --release ./sample-data.csv 1
 
 ### Run Ruby CSV splitter
 
+Copy the `csv-split.rb` file from [this repo](https://github.com/imartingraham/csv-split)
+
 ```bash
 $ ruby ./csv-split.rb -f ./sample-data.csv -l 1 --include-headers
 ```
