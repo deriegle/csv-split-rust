@@ -33,9 +33,10 @@ The only difference is the number of rows in the file, but the data was consiste
 
 ### Run Rust CSV splitter
 
-It takes two arguments
-1. File Name of CSV file to split
-2. Batch size per split file
+It takes up to three arguments
+1. File Name of CSV file to split (required)
+2. Batch size per split file (optional, default=10,000)
+3. Output folder name (optional, default="./split-rust-files")
 
 ```bash
 $ cargo run --release ./sample-data.csv 1
