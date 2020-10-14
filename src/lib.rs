@@ -1,29 +1,12 @@
+pub mod config;
+
 use std::fs::File;
 use std::io::{self,BufRead,Lines};
 use std::error::Error;
-use std::env;
 
 const BATCH_SIZE: i32 = 10_000;
 
-pub struct Config {
-    pub filename: String
-}
-
-impl Config {
-    pub fn new(mut args: env::Args) -> Result<Config, &'static str> {
-        // skip first arg which has name of file we're running
-        args.next();
-
-        let filename = match args.next() {
-            Some(arg) => arg,
-            None => return Err("Didn't receive a filename.")
-        };
-
-        Ok(Config { filename })
-    }
-}
-
-pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
+pub fn run(config: config::Config) -> Result<(), Box<dyn Error>> {
     let file = File::open(config.filename)?;
     let reader = io::BufReader::new(file);
 
