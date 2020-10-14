@@ -22,7 +22,6 @@ impl Config {
             None => Ok(DEFAULT_BATCH_SIZE)
         }.unwrap_or(DEFAULT_BATCH_SIZE);
 
-
         Ok(Config { batch_size, filename })
     }
 }

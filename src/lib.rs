@@ -1,8 +1,11 @@
 pub mod config;
 
-use std::fs::File;
+use std::fs::{create_dir,File};
 use std::io::{self,BufRead,Lines};
 use std::error::Error;
+use std::path::Path;
+
+const FOLDER_NAME: &str = "split-rust-files";
 
 pub fn run(config: config::Config) -> Result<(), Box<dyn Error>> {
     let file = File::open(config.filename)?;
@@ -15,7 +18,7 @@ pub fn run(config: config::Config) -> Result<(), Box<dyn Error>> {
 
     for batch in result.batches.iter() {
         file_number += 1;
-        let file_name = format!("test-{}.csv", file_number);
+        let file_name = format!("{}/test-{}.csv", FOLDER_NAME, file_number);
         let mut file_contents = result.header.clone();
 
         file_contents.push('\n');
@@ -87,6 +90,10 @@ struct ProcessResult {
 }
 
 fn create_and_write_file(file_name: &String, contents: &String) -> Result<(), Box<dyn Error>> {
+    if !Path::new(FOLDER_NAME).exists() {
+        create_dir(FOLDER_NAME).unwrap();
+    }
+
     std::fs::write(file_name, contents)?;
     return Ok(());
 }
