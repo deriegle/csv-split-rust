@@ -37,6 +37,7 @@ pub fn run(config: config::Config) -> Result<(), Box<dyn Error>> {
 
 fn process_lines(mut lines: Lines<io::BufReader<File>>, batch_size: i32) -> Result<ProcessResult, Box<dyn Error>> {
     let mut current_line: i32 = 0;
+    let mut current_processed_line: i32 = 0;
     let mut batches: Vec<Vec<String>> = Vec::new();
 
     let header = match lines.next().expect("Something went wrong while parsing the file.") {
@@ -48,7 +49,20 @@ fn process_lines(mut lines: Lines<io::BufReader<File>>, batch_size: i32) -> Resu
         current_line += 1;
 
         let contents = line.expect("Something went wrong while parsing the file");
-        let batch_number = (current_line / batch_size) as usize;
+
+        // Skip empty lines
+        if contents.is_empty() {
+            continue;
+        }
+
+        // When we skip empty lines we end up with batch numbers being incorrect, so
+        // we need to have this separate "current_processed_line" variable to keep track
+        // of the number of processed lines to use in our batch_number calculation.
+        current_processed_line += 1;
+
+        let batch_number = if batch_size == 1 { current_processed_line as usize } else { (current_processed_line as f32 / batch_size as f32).ceil() as usize } - 1;
+
+        println!("Current Line: {}. Batch Size: {}. Batch Number: {}", current_line, batch_size, batch_number);
 
         match batches.get_mut(batch_number) {
             None => {
