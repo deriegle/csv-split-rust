@@ -16,7 +16,9 @@ The only difference is the number of rows in the file, but the data was consiste
 | -- | -- | -- | -- | -- |
 | Rust | 4.0KB | 5 | 1 | 0.0003829 seconds |
 | Ruby | 4.0KB | 5 | 1 | 0.001946943 seconds |
+| - | - | - | - | - |
 | Rust | 28KB | 1,000 | 1 | 0.03352806 seconds |
 | Ruby | 28KB | 1,000 | 1 | 0.094704671 seconds |
+| - | - | - | - | - |
 | Rust | 289MB | 10,790,000 | 10,000 | 1.678728042 seconds |
 | Ruby | 289MB | 10,790,000 | 10,000 | |
