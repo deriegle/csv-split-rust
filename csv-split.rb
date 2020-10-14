@@ -5,6 +5,7 @@
 require 'optimist'
 require 'fileutils'  #Added for file management
 require 'csv'
+require 'date'
 
 # I want to deeply thank https://github.com/imartingraham for providing this original work
 #
@@ -44,6 +45,8 @@ if opts[:remove_columns] == true
 		exit
 	end
 end
+
+start_time = Time.now
 
 #Disliked Converted file as directory name so changed defual to split-files
 split_path_name = "split-files"
@@ -155,3 +158,7 @@ if opts[:remove_columns] == true
 		end
 	end
 end
+
+end_time = Time.now
+
+puts "Took #{end_time - start_time} seconds to process file."

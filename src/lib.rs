@@ -30,7 +30,7 @@ pub fn run(config: config::Config) -> Result<(), Box<dyn Error>> {
     let elapsed = start.elapsed();
 
     println!(
-        "Took {:.5} seconds to process {} batches.",
+        "Took {:.9} seconds to process {} batches.",
         elapsed.as_secs() as f64 + elapsed.subsec_nanos() as f64 * 1e-9,
         result.batches.len()
     );
@@ -39,7 +39,6 @@ pub fn run(config: config::Config) -> Result<(), Box<dyn Error>> {
 }
 
 fn process_lines(mut lines: Lines<io::BufReader<File>>, batch_size: i32) -> Result<ProcessResult, Box<dyn Error>> {
-    let mut current_line: i32 = 0;
     let mut current_processed_line: i32 = 0;
     let mut batches: Vec<Vec<String>> = Vec::new();
 
@@ -49,9 +48,9 @@ fn process_lines(mut lines: Lines<io::BufReader<File>>, batch_size: i32) -> Resu
     };
 
     for line in lines {
-        current_line += 1;
-
         let contents = line.expect("Something went wrong while parsing the file");
+
+
 
         // Skip empty lines
         if contents.is_empty() {
@@ -65,8 +64,6 @@ fn process_lines(mut lines: Lines<io::BufReader<File>>, batch_size: i32) -> Resu
 
         let batch_number = if batch_size == 1 { current_processed_line as usize } else { (current_processed_line as f32 / batch_size as f32).ceil() as usize } - 1;
 
-        println!("Current Line: {}. Batch Size: {}. Batch Number: {}", current_line, batch_size, batch_number);
-
         match batches.get_mut(batch_number) {
             None => {
                 let mut new_batch = Vec::new();
@@ -78,8 +75,6 @@ fn process_lines(mut lines: Lines<io::BufReader<File>>, batch_size: i32) -> Resu
             }
         }
     }
-
-    println!("Header Text: {}", header);
 
     return Ok(ProcessResult { header, batches });
 }
