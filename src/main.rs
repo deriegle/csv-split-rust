@@ -10,6 +10,8 @@ fn main() -> std::io::Result<()> {
     let mut batches: std::vec::Vec<std::vec::Vec<String>> = Vec::new();
     let mut current_line: i32 = 0;
 
+    let start = std::time::Instant::now();
+
     for line in reader.lines() {
         current_line += 1;
 
@@ -31,6 +33,8 @@ fn main() -> std::io::Result<()> {
         }
     }
 
+    let elapsed = start.elapsed();
+
     match header {
         None => println!("File not found."),
         Some(header_text) => {
@@ -38,7 +42,7 @@ fn main() -> std::io::Result<()> {
         }
     }
 
-    println!("Number of batches: {}", batches.len());
+    println!("{:.2?} seconds for processing {} batches", elapsed, batches.len());
 
     Ok(())
 }
