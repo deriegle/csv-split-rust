@@ -23,6 +23,9 @@ The only difference is the number of rows in the file, but the data was consiste
 | Rust | 1.7MB | 60,000 | 1 | 1.115898174 |
 | Ruby | 1.7MB | 60,000 | 1 | 5.387614667 |
 | - | - | - | - | - |
+| Rust | 2.7MB | 1,000,000 | 100 | 0.042519370 |
+| Ruby | 2.7MB | 1,000,000 | 100 | 1.710918996 |
+| - | - | - | - | - |
 | Rust | 289MB | 10,790,000 | 10,000 | 1.678728042 |
 | Ruby | 289MB | 10,790,000 | 10,000 | 188.9817373 |
 
