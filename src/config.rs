@@ -1,8 +1,11 @@
 use std::env;
 
 pub struct Config {
+    pub batch_size: i32,
     pub filename: String
 }
+
+const DEFAULT_BATCH_SIZE: i32 = 10000;
 
 impl Config {
     pub fn new(mut args: env::Args) -> Result<Config, &'static str> {
@@ -14,6 +17,12 @@ impl Config {
             None => return Err("Didn't receive a filename.")
         };
 
-        Ok(Config { filename })
+        let batch_size = match args.next() {
+            Some(size) => size.parse::<i32>(),
+            None => Ok(DEFAULT_BATCH_SIZE)
+        }.unwrap_or(DEFAULT_BATCH_SIZE);
+
+
+        Ok(Config { batch_size, filename })
     }
 }
