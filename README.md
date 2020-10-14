@@ -13,7 +13,7 @@ I've included a `./sample-data.csv` file in this repo to provide a sample of the
 The only difference is the number of rows in the file, but the data was consistent in each row.
 
 | Language | File Size | Line Count | Batch Size | Avg. Time |
-| -- | -- | -- | -- | -- |
+| :--: | :--: | :--: | :--: | :--: |
 | Rust | 4.0KB | 5 | 1 | 0.0003829 seconds |
 | Ruby | 4.0KB | 5 | 1 | 0.001946943 seconds |
 | - | - | - | - | - |
