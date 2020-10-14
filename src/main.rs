@@ -1,28 +1,44 @@
 use std::fs::File;
 use std::io::{self,BufRead};
-use std::path::Path;
 
 const BATCH_SIZE: i32 = 10_000;
 
+fn main() -> std::io::Result<()> {
+    let mut header: std::option::Option<String> = None;
+    let file = File::open("./test.csv")?;
+    let reader = io::BufReader::new(file);
+    let mut batches: std::vec::Vec<std::vec::Vec<String>> = Vec::new();
+    let mut current_line: i32 = 0;
 
-fn main() {
-    let mut header = String::new();
-    let mut reader = read_csv_lines("./test.csv").unwrap();
+    for line in reader.lines() {
+        current_line += 1;
 
-    let reader_ref = &mut reader;
+        if header.is_none() {
+            header = Some(line.unwrap());
+        } else {
+            let batch_number = (current_line / BATCH_SIZE) as usize;
 
-    println!("{} lines", reader_ref.lines().count());
+            match batches.get_mut(batch_number) {
+                None => {
+                    let mut new_batch = Vec::new();
+                    new_batch.push(line?);
+                    batches.insert(batch_number, new_batch);
+                },
+                Some(batch) => {
+                    batch.push(line?);
+                }
+            }
+        }
+    }
 
-    reader.read_line(&mut header).unwrap();
+    match header {
+        None => println!("File not found."),
+        Some(header_text) => {
+            println!("Header Text: {}", header_text);
+        }
+    }
 
-    let reader_ref_2 = &mut reader;
+    println!("Number of batches: {}", batches.len());
 
-    println!("{}", header);
-    println!("{} lines", reader_ref_2.lines().count());
-}
-
-fn read_csv_lines<P>(filename: P) -> io::Result<io::BufReader<File>> where P: AsRef<Path>, {
-    let file = File::open(filename)?;
-
-    Ok(io::BufReader::new(file))
+    Ok(())
 }
